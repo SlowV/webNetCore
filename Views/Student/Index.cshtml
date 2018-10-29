@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MyWebNetCore.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["List_Student"] = "Model";
+}
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/MyCss.css" />
+</environment>
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RollNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Avatar)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RollNumber)
+                    </td>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.Avatar)" alt="Avarta user" class="avatar-user" />
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                        <a href="Student/Delete/@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2>Hiện chưa có Sinh viên nào trong danh sách <a asp-action="Create">Ấn đây</a> để thêm mới sinh vi</h2>
+}
